@@ -24,7 +24,7 @@ On the command line (the terminal)
   MYSQL_DATABASE: "dbase"
   MYSQL_USER: "dbuser"
   MYSQL_PASSWORD: "dbpass"
-
+```
 ## Database Connection
 - Connect to the MySQL database with the following credentials:
 
@@ -66,7 +66,7 @@ offical DockerHub page [https://hub.docker.com/_/php ](https://hub.docker.com/_/
 To add more PHP extensions, add the package to install in the list of packages
 to install after the 'apt-get install' line (put them in alphabetical order).
 Then add a 'docker-php-ext-install' line.
-```
+
 FROM php:8-apache
 
 RUN apt-get update && apt-get install -y \
