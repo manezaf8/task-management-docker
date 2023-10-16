@@ -5,7 +5,7 @@ RUN docker-php-ext-install mysqli && docker-php-ext-enable mysqli
 
 # # Use an appropriate base image (e.g., alpine:latest)
 # FROM alpine:latest
-# RUN sudo apt -y install git
+# RUN apt -y install git
 # # Install Git
 # RUN apk --no-cache add git
 
