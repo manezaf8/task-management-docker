@@ -14,12 +14,13 @@ copy of phpMyAdmin is included for easy database administration.
   ## Run Docker images
 On the command line (the terminal)
 - Clone 2 repos.
-  - `git clone https://github.com/manezaf8/task-management-docker.git`
-  - `ggit clone https://github.com/manezaf8/task-dashboard.git`
-  - Add files from `task-management` to `task-management-docker/php/src/` edit `Connection.php`
+  - `git clone https://github.com/manezaf8/task-management-docker.git` edit `Connection.php`
 - Change into the directory
 - `cd task-management-docker`
 - Change the MySQL account info in the `docker-compose.yml` file if you want
+ - add this https://github.com/manezaf8/task-dashboard.git inside the docker php project for version control
+   Make sure that files from the `php/src` are the same as those in the `task-deshboad` always remove .git folder when copying files 
+   the docker folder.
  
 ```
   MYSQL_ROOT_PASSWORD: "rootPASS"
