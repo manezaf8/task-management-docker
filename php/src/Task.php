@@ -68,7 +68,8 @@ class Task
         return $this->description;
     }
 
-    public function setDueDate($dueDate) {
+    public function setDueDate($dueDate)
+    {
         if ($dueDate !== null) {
             $this->dueDate = $dueDate;
         }
@@ -116,7 +117,7 @@ class Task
         // Prepare the SQL statement
         $sql = "INSERT INTO tasks (title, description, due_date, user_id, completed) 
         VALUES (?, ?, ?, ?, ?)";
-
+        var_dump($sql);
         // You should adjust this logic based on your actual application flow.
         $userId = null; // Initialize user ID as null
 
@@ -187,7 +188,7 @@ class Task
                 SET title = ?, description = ?, due_date = ?, user_id = ?, completed = ? 
                 WHERE id = ?";
         $userId = null;
-        
+
         if (isset($_SESSION['user_id'])) {
             $userId = $_SESSION['user_id'];
         }

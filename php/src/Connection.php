@@ -9,10 +9,7 @@
 
 if (session_id() === '') {
     session_start();
-} else {
-    session_start();
-}
-
+} 
 
 // Database credentials
 $dbHost = 'db';

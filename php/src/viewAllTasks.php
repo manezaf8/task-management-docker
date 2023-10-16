@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @package   Task Management
  * @author    Ntabethemba Ntshoza
@@ -9,7 +10,7 @@
 
 require 'Task.php'; // Include the Task class
 require 'Users.php'; // Include the user class
-require 'weather.php';// Include the weather integration file
+require 'weather.php'; // Include the weather integration file
 
 // Define your OpenWeatherMap API key and city
 $users = new User();
@@ -46,8 +47,8 @@ $taskClass = new Task();
         <div style="background-color: #f0f0f0; padding: 20px; text-align: center;">
             <h3>Current Weather</h3>
             <p>City: <?php echo isset($weatherData["name"]) ? $weatherData["name"] : ""; ?></p>
-            <p>Current Temp: <?php echo isset($weatherData["main"]["temp"]) ? $weatherData["main"]["temp"]: ""; ?></p>
-            <p>Weather: <?php echo isset($weatherData["weather"][0]["description"]) ? $weatherData["weather"][0]["description"]: ""; ?></p>
+            <p>Current Temp: <?php echo isset($weatherData["main"]["temp"]) ? $weatherData["main"]["temp"] : ""; ?></p>
+            <p>Weather: <?php echo isset($weatherData["weather"][0]["description"]) ? $weatherData["weather"][0]["description"] : ""; ?></p>
         </div>
 
         <h1 style=" text-align: center;">Listed Tasks</h1>
@@ -71,7 +72,7 @@ $taskClass = new Task();
         <?php endif; ?>
 
         <div id="logoutAndNewTask">
-        <?php echo '<a href="createTask.php" class="btn btn-primary">Create a Task</a>'; ?>
+            <?php echo '<a href="createTask.php" class="btn btn-primary">Create a Task</a>'; ?>
             <button onclick="logoutNow()" class="btn btn-danger" style="margin-left: 1em;">Logout</button>
         </div>
 
@@ -80,11 +81,6 @@ $taskClass = new Task();
         if (isset($_GET['delete_success']) && $_GET['delete_success'] == 1) {
             echo '<div class="alert alert-success">Task ' . $taskClass->getId() . ' deleted successfully!</div>';
         }
-
-        if (isset($_GET['edit_success']) && $_GET['edit_success'] == 1) {
-            echo '<div class="alert alert-success">Task ' . $taskClass->getId() . ' edited successfully!</div>';
-        }
-
         ?>
 
         <?php
@@ -128,9 +124,9 @@ $taskClass = new Task();
                             </td>
                             <td>
                                 <!-- Edit button -->
-                                <button  onclick="editTask(<?php echo $task->getId(); ?>)" class="btn btn-primary btn-sm">Edit</button>
+                                <button onclick="editTask(<?php echo $task->getId(); ?>)" class="btn btn-primary btn-sm">Edit</button>
                             </td>
-                            <td> 
+                            <td>
                                 <!-- Delete button -->
                                 <button onclick="deleteTask(<?php echo $task->getId(); ?>)" class="btn btn-danger btn-sm">Delete</button>
                             </td>

@@ -94,13 +94,6 @@ if (isset($_GET['id'])) {
     <div class="container">
         <h1>Edit Task</h1>
 
-        <!-- Display success message if present in the URL -->
-        <?php
-        if (isset($_GET['edit_success']) && $_GET['edit_success'] == 1) {
-            echo '<div class="alert alert-success">Task ' . $task->getTaskId() . ' edited successfully!</div>';
-        }
-        ?>
-
         <!-- Task edit form -->
         <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>" class="form-horizontal">
             <input type="hidden" name="id" value="<?php echo $task->getId(); ?>">

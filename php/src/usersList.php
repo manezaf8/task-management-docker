@@ -74,6 +74,8 @@ $city =  $usersClass->getWeatherCity();
                         <th>User Name</th>
                         <th>User City</th>
                         <th>User Email</th>
+                        <th data-orderable="false">Edit</th>
+                        <th data-orderable="false">Delete</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -87,13 +89,34 @@ $city =  $usersClass->getWeatherCity();
                             <td><?php echo $user->getName(); ?></td>
                             <td><?php echo $user->getCity(); ?></td>
                             <td><?php echo $user->getEmail(); ?></td>
-
+                            <td>
+                                <!-- Edit button -->
+                                <button onclick="editTask(<?php echo $user->getUserId(); ?>)" class="btn btn-primary btn-sm">Edit</button>
+                            </td>
+                            <td>
+                                <!-- Delete button -->
+                                <button onclick="deleteTask(<?php echo $user->getUserId(); ?>)" class="btn btn-danger btn-sm">Delete</button>
+                            </td>
                             <!-- JavaScript function to confirm and delete the task -->
                             <script>
                                 function logoutNow() {
                                     if (confirm("Are you sure you want to logout?")) {
                                         // Redirect to logout.php
                                         window.location.href = "logout.php";
+                                    }
+                                }
+
+                                function deleteTask(taskId) {
+                                    if (confirm("Are you sure you want to delete this user?")) {
+                                        // Redirect to deleteTask.php with the task ID
+                                        window.location.href = "deleteUser.php?id=" + taskId;
+                                    }
+                                }
+
+                                function editTask(taskId) {
+                                    if (confirm("Are you sure you want to edit this user?")) {
+                                        // Redirect to deleteTask.php with the task ID
+                                        window.location.href = "editUser.php?id=" + taskId;
                                     }
                                 }
                             </script>

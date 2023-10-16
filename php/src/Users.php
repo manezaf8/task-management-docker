@@ -19,10 +19,10 @@ class User
     private $email;
     private $password;
     private $id;
-  
+
     /**
      * Get the value of id
-     */ 
+     */
     public function getUserId()
     {
         return $this->id;
@@ -125,17 +125,17 @@ class User
         }
     }
 
-        // Getter method for name
-        public function getWeatherUserId()
-        {
-            // Retrieve the user's ID from the session
-            if (isset($_SESSION['user_id'])) {
-                return $_SESSION['user_id'];
-            } else {
-                // Handle the case where the user's ID is not found in the session
-                return $this->id;
-            }
+    // Getter method for name
+    public function getWeatherUserId()
+    {
+        // Retrieve the user's ID from the session
+        if (isset($_SESSION['user_id'])) {
+            return $_SESSION['user_id'];
+        } else {
+            // Handle the case where the user's ID is not found in the session
+            return $this->city;
         }
+    }
 
     // Function to save a new user to the database
     public function save()
@@ -391,17 +391,17 @@ class User
     /**
      * Get a user by ID
      *
-     * @param string|int $user_id
-     * @return array
+     * @param string|int $userId
+     * @return mixed
      */
-    public function getUserById($user_id)
+    public function getUserById($userId)
     {
         global $db; // Use the database connection from Connection.php
 
         // Prepare the SQL statement to retrieve user data by user_id
         $sql = "SELECT * FROM users WHERE id = ?";
         $stmt = $db->prepare($sql);
-        $stmt->bind_param("i", $user_id);
+        $stmt->bind_param("i", $userId);
 
         if ($stmt->execute()) {
             // Execute the query
@@ -430,16 +430,16 @@ class User
 
         // Prepare the SQL statement
         $sql = "UPDATE users 
-                SET name = ?, city = ?, email 
+                SET name = ?, city = ?
                 WHERE id = ?";
 
         // Bind parameters and execute the query
         $stmt = $db->prepare($sql);
         $stmt->bind_param(
-            "sss",
+            "ssi",  // "ssi" indicates that you are binding two strings and an integer
             $this->name,
             $this->city,
-            $this->email,
+            $this->id // Add the binding for the 'id' parameter
         );
 
         if ($stmt->execute()) {
@@ -449,12 +449,13 @@ class User
         }
     }
 
+
     /**
      * Delete users
      *
      * @return bool
      */
-    public function delete()
+    public function delete($userId)
     {
         global $db; // Use the database connection from connect.php
 
@@ -463,7 +464,7 @@ class User
 
         // Bind parameters and execute the query
         $stmt = $db->prepare($sql);
-        $stmt->bind_param("i", $this->id);
+        $stmt->bind_param("i", $userId);
 
         if ($stmt->execute()) {
             return true; // user deleted successfully
