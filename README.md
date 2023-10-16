@@ -28,6 +28,13 @@ On the command line (the terminal)
   MYSQL_USER: "dbuser"
   MYSQL_PASSWORD: "dbpass"
 ```
+- Start the container
+  - `docker compose up`
+  - Or run it in the background to free up the terminal
+    - `docker compose up -d`
+- To stop the containers
+  - press ctrl-c
+  - then run `docker compose down`
 ## Database Connection
 - Connect to the MySQL database with the following credentials:
 
