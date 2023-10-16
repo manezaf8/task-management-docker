@@ -14,19 +14,15 @@ global $db;
 
 class User
 {
-
     private $name;
+    private $city;
     private $email;
     private $password;
     private $id;
-
-    // Constructor
-    //   public function __construct()
-    //   {
-    //       // Initialize any necessary properties
-    //   }
-
-    // Getter method for name
+  
+    /**
+     * Get the value of id
+     */ 
     public function getUserId()
     {
         return $this->id;
@@ -74,6 +70,73 @@ class User
         $this->password = $password;
     }
 
+    /**
+     * Get the value of city
+     */
+    public function getCity()
+    {
+        return $this->city;
+    }
+
+    /**
+     * Set the value of city
+     *
+     * @return  self
+     */
+    public function setCity($city)
+    {
+        $this->city = $city;
+
+        return $this;
+    }
+
+
+    /**
+     * Get the value of city
+     */
+    public function getWeatherCity()
+    {
+        global $db; // Use the database connection from Connection.php
+
+        // Prepare the SQL statement to fetch all users
+        $user_id = $this->getWeatherUserId(); // Get the user's ID for the currently logged-in user;
+        $sql = "SELECT city FROM users WHERE id = $user_id";
+
+        // Execute the query
+        $result = $db->query($sql);
+
+        // Check if the query was successful
+        if ($result) {
+            $theCity = [];
+
+            // Fetch user data and create User objects
+            while ($row = $result->fetch_assoc()) {
+                $theCity = isset($row['city']) ? $row['city'] : "Cape town";
+            }
+
+            if (!is_null($theCity)) {
+                // var_dump($theCity);
+
+                return $theCity;
+            } else {
+
+                return false;
+            }
+        }
+    }
+
+        // Getter method for name
+        public function getWeatherUserId()
+        {
+            // Retrieve the user's ID from the session
+            if (isset($_SESSION['user_id'])) {
+                return $_SESSION['user_id'];
+            } else {
+                // Handle the case where the user's ID is not found in the session
+                return $this->id;
+            }
+        }
+
     // Function to save a new user to the database
     public function save()
     {
@@ -83,17 +146,17 @@ class User
         $hashedPassword = password_hash($this->password, PASSWORD_DEFAULT);
 
         // Prepare the SQL statement
-        $sql = "INSERT INTO users (name, email, password) VALUES (?, ?, ?)";
+        $sql = "INSERT INTO users (name, city, email, password) VALUES (?, ?, ?, ?)";
 
         // Bind parameters and execute the query
         $stmt = $db->prepare($sql);
-        $stmt->bind_param("sss", $this->name, $this->email, $hashedPassword);
+        $stmt->bind_param("ssss", $this->name, $this->city, $this->email, $hashedPassword);
 
         try {
             // Your registration code here
             if ($stmt->execute()) {
                 $_SESSION['user_id'] = $this->getUserId();
-                $_SESSION['registration_success'] = 'User registered successfully!';
+                $_SESSION['registration_success'] = 'User ' . $this->name . ' registered successfully!';
 
                 return true; // User saved successfully
             } else {
@@ -239,7 +302,8 @@ class User
         }
     }
 
-    public function isValidPasswordResetRequest($email, $token) {
+    public function isValidPasswordResetRequest($email, $token)
+    {
         global $db; // Use the database connection from connect.php or your configuration file.
 
         // Prepare a SQL statement to check if the email and token match a valid reset request.
@@ -250,7 +314,7 @@ class User
         $stmt->bind_param("ss", $email, $token);
         $stmt->execute();
         $stmt->store_result();
-        
+
         // If a row is found, the request is valid.
         $isValid = ($stmt->num_rows === 1);
 
@@ -266,7 +330,8 @@ class User
      * @param string $newPassword
      * @return void
      */
-    public function updatePassword($email, $newPassword) {
+    public function updatePassword($email, $newPassword)
+    {
         global $db; // Use the database connection from connect.php or your configuration file.
 
         // Hash the new password (you should use a secure hashing method).
@@ -309,6 +374,7 @@ class User
                 $user = new User();
                 $user->setUserId($row['id']);
                 $user->setName($row['name']);
+                $user->setCity($row['city']);
                 $user->setEmail($row['email']);
                 // Add more setters for other user properties as needed
 
@@ -363,20 +429,17 @@ class User
         global $db; // Use the database connection from connect.php
 
         // Prepare the SQL statement
-        $sql = "UPDATE tasks 
-                SET title = ?, description = ?, due_date = ?, user_id = ?, completed = ? 
+        $sql = "UPDATE users 
+                SET name = ?, city = ?, email 
                 WHERE id = ?";
 
         // Bind parameters and execute the query
         $stmt = $db->prepare($sql);
         $stmt->bind_param(
-            "sssiii",
-            $this->title,
-            $this->description,
-            $this->dueDate,
-            $this->userId,
-            $this->completed,
-            $this->id
+            "sss",
+            $this->name,
+            $this->city,
+            $this->email,
         );
 
         if ($stmt->execute()) {

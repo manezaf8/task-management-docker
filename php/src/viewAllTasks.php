@@ -8,13 +8,13 @@
 
 
 require 'Task.php'; // Include the Task class
-// Include the weather integration file
-require 'weather.php';
+require 'Users.php'; // Include the user class
+require 'weather.php';// Include the weather integration file
 
 // Define your OpenWeatherMap API key and city
+$users = new User();
 $apiKey = '4e8f3a3d6960a08f787632c2eca2e89f';
-$city = 'Cape Town';
-
+$city =  $users->getWeatherCity();
 
 $taskClass = new Task();
 ?>
@@ -45,9 +45,9 @@ $taskClass = new Task();
         <!-- Styling for weather information -->
         <div style="background-color: #f0f0f0; padding: 20px; text-align: center;">
             <h3>Current Weather</h3>
-            <p>City: <?php echo $weatherData["name"]; ?></p>
-            <p>Current Temp: <?php echo $weatherData["main"]["temp"]; ?></p>
-            <p>Weather: <?php echo $weatherData["weather"][0]["description"]; ?></p>
+            <p>City: <?php echo isset($weatherData["name"]) ? $weatherData["name"] : ""; ?></p>
+            <p>Current Temp: <?php echo isset($weatherData["main"]["temp"]) ? $weatherData["main"]["temp"]: ""; ?></p>
+            <p>Weather: <?php echo isset($weatherData["weather"][0]["description"]) ? $weatherData["weather"][0]["description"]: ""; ?></p>
         </div>
 
         <h1 style=" text-align: center;">Listed Tasks</h1>

@@ -12,12 +12,12 @@ require 'Users.php'; // Include the Task class
 // Include the weather integration file
 require 'weather.php';
 
-// Define your OpenWeatherMap API key and city
-$apiKey = '4e8f3a3d6960a08f787632c2eca2e89f';
-$city = 'Cape Town';
-
 // User class
 $usersClass = new User();
+
+// Define your OpenWeatherMap API key and city
+$apiKey = '4e8f3a3d6960a08f787632c2eca2e89f';
+$city =  $usersClass->getWeatherCity();
 ?>
 
 <!DOCTYPE html>
@@ -46,9 +46,9 @@ $usersClass = new User();
         <!-- Styling for weather information -->
         <div style="background-color: #f0f0f0; padding: 20px; text-align: center;">
             <h3>Current Weather</h3>
-            <p>City: <?php echo $weatherData["name"]; ?></p>
-            <p>Current Temp: <?php echo $weatherData["main"]["temp"]; ?></p>
-            <p>Weather: <?php echo $weatherData["weather"][0]["description"]; ?></p>
+            <p>City: <?php echo isset($weatherData["name"]) ? $weatherData["name"] : ""; ?></p>
+            <p>Current Temp: <?php echo isset($weatherData["main"]["temp"]) ? $weatherData["main"]["temp"] : ""; ?></p>
+            <p>Weather: <?php echo isset($weatherData["weather"][0]["description"]) ? $weatherData["weather"][0]["description"] : ""; ?></p>
         </div>
 
         <h1 style=" text-align: center;">Listed Users</h1>
@@ -72,6 +72,7 @@ $usersClass = new User();
                     <tr>
                         <th>User ID</th>
                         <th>User Name</th>
+                        <th>User City</th>
                         <th>User Email</th>
                     </tr>
                 </thead>
@@ -84,6 +85,7 @@ $usersClass = new User();
                         <tr>
                             <td><?php echo $user->getUserId(); ?></td>
                             <td><?php echo $user->getName(); ?></td>
+                            <td><?php echo $user->getCity(); ?></td>
                             <td><?php echo $user->getEmail(); ?></td>
 
                             <!-- JavaScript function to confirm and delete the task -->

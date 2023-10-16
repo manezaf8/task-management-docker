@@ -38,6 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     } elseif (isset($_POST['create'])) {
         // User clicked the "Create User" button
         $name = $_POST['name'];
+        $city = $_POST['city'];
         $email = $_POST['email'];
         $password = $_POST['password'];
 
@@ -47,6 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         if ($user->validatePassword($password)) {
             // Password is valid, create the user
             $user->setName($name);
+            $user->setCity($city);
             $user->setEmail($email);
             $user->setPassword($password);
 
@@ -125,8 +127,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         <div class="row">
                             <div class="col-md-6">
                                 <button type="submit" class="btn btn-primary" name="login">Log In</button>
-                                
-                                <p class="m-0 d-inline">  <a href="forgotPassword.php">Forgot Password?</a></p>
+
+                                <p class="m-0 d-inline"> <a href="forgotPassword.php">Forgot Password?</a></p>
                             </div>
                             <div class="col-md-6 text-right">
                                 <p class="m-0 d-inline">Not a member?</p>
@@ -160,6 +162,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         <div class="form-group">
                             <label for="createName">Name:</label>
                             <input type="text" class="form-control" id="createName" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="createEmail">Your City:</label>
+                            <input type="text" class="form-control" id="createEmail" name="city" required>
                         </div>
                         <div class="form-group">
                             <label for="createEmail">Email:</label>

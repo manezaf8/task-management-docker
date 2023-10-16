@@ -57,8 +57,8 @@ class Task
     public function setDescription($description)
     {
         //validation for the description if needed
-        $this->description = trim($description); //remove html tags
-        $this->description = strip_tags($description); //remove empty spaces;
+        $this->description = trim($description); //remove empty spaces 
+        $this->description = strip_tags($description); //remove html tags;
         $this->description = stripslashes($description); //remove empty spaces;
         $this->description = $description;
     }
