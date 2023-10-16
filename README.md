@@ -13,14 +13,12 @@ copy of phpMyAdmin is included for easy database administration.
 
   ## Run Docker images
 On the command line (the terminal)
-- Clone 2 repos.
-  - `git clone https://github.com/manezaf8/task-management-docker.git` edit `Connection.php`
+- Clone this repo
+  - `git clone https://github.com/manezaf8/task-management-docker.git` edit `Connection.php` if you have another DB details
 - Change into the directory
 - `cd task-management-docker`
 - Change the MySQL account info in the `docker-compose.yml` file if you want
- - add this https://github.com/manezaf8/task-dashboard.git inside the docker php project for version control
-   Make sure that files from the `php/src` are the same as those in the `task-deshboad` always remove .git folder when copying files 
-   the docker folder.
+ - Make sure that PHP files from the `php/src` have a Connection.php file
  
 ```
   MYSQL_ROOT_PASSWORD: "rootPASS"
@@ -35,6 +33,7 @@ On the command line (the terminal)
 - To stop the containers
   - press ctrl-c
   - then run `docker compose down`
+- When the containers are up open `phpmyadmin` go to `ekomi` database and add tables from `Database.sql` then run the website. 
 ## Database Connection
 - Connect to the MySQL database with the following credentials:
 
