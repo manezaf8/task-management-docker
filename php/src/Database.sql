@@ -3,6 +3,7 @@ CREATE TABLE users (
   `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(255) UNIQUE NOT NULL,
   `email` varchar(255) NOT NULL,
+  `city` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
   `reset_token` varchar(255) DEFAULT NULL,
   `reset_expiration` datetime DEFAULT NULL,
