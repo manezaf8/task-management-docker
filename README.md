@@ -9,6 +9,8 @@ copy of phpMyAdmin is included for easy database administration.
 ## Prerequisites
 - Install and run Docker Desktop
   - [https://www.docker.com/get-started ](https://www.docker.com/get-started)
+  - Insatll vscode and docker extention
+  - Install git to pull and push
 
 
   ## Run Docker images
