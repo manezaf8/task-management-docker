@@ -247,7 +247,7 @@ if (isset($_GET['id'])) {
                 <div class="container">
                     <div class="row">
                         <div class="span6">
-                            &copy; Copyright 2013 - Designed by Maneza F8
+                            &copy; Copyright  <?php echo date("Y") ?> - Designed by Maneza F8
                         </div>
                         <div class="span6">
                             <nav>
