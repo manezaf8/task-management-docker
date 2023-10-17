@@ -18,7 +18,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $user->setEmail($email);
 
         if ($user->forgotPassword($email)) {
-
+ echo "<style>
+ #forgotPassword {
+     display: none;
+ }
+</style>";
             session_destroy();
         }
     }
@@ -61,7 +65,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <div class="alert alert-danger text-center"><?php echo $emailNotExistsMessage; ?></div>
                 <?php endif; ?>
 
-                <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+                <form id="forgotPassword" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
                     <div class="form-group">
                         <label for="email">Email:</label>
                         <input type="email" class="form-control" id="email" name="email" required>

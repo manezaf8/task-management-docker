@@ -29,10 +29,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $user->updatePassword($email, $newPassword);
 
             // Password updated successfully
-            $resetPasswordSuccess = "Password reset successfully. You will be redirected to the login page in 3 seconds. If not, click <a href='index.php'>here</a>.";
+            $resetPasswordSuccess = "Password reset successfully. You will be redirected to the login page in 5 seconds. If not, click <a href='index.php'>here</a>.";
 
-            echo $resetPasswordSuccess;
-            echo '<meta http-equiv="refresh" content="3;url=index.php">';
+            echo '<meta http-equiv="refresh" content="5;url=index.php">';
             
             exit; // Terminate script execution
         } else {

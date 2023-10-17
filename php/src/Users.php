@@ -156,7 +156,7 @@ class User
             // Your registration code here
             if ($stmt->execute()) {
                 $_SESSION['user_id'] = $this->getUserId();
-                $_SESSION['registration_success'] = 'User ' . $this->name . ' registered successfully!';
+                $_SESSION['registration_success'] = 'Heey!!! ' . $this->name . ' you registered successfully. Please Login..';
 
                 return true; // User saved successfully
             } else {
@@ -278,12 +278,6 @@ class User
         return false;
     }
 
-    /**
-     * Get Site url
-     *
-     * @param string $path
-     * @return string
-     */
     function getSiteUrl($path = '/') {
         $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? "https://" : "http://";
         $host = $_SERVER['HTTP_HOST'];
@@ -296,12 +290,6 @@ class User
     }
 
 
-    /**
-     * Check if email exists
-     *
-     * @param [type] $email
-     * @return Bool
-     */
     private function emailExists($email)
     {
         global $db; // Use the database connection from connect.php
@@ -325,13 +313,6 @@ class User
         }
     }
 
-    /**
-     * Validate password
-     *
-     * @param [type] $email
-     * @param [type] $token
-     * @return boolean
-     */
     public function isValidPasswordResetRequest($email, $token)
     {
         global $db; // Use the database connection from connect.php or your configuration file.
@@ -375,7 +356,7 @@ class User
         $stmt->bind_param("ss", $hashedPassword, $email);
         $result = $stmt->execute();
         if ($result){
-            $_SESSION['updated_password'] = "Password reset was successful!";
+            $_SESSION['updated_password'] = "Password reset was successful! | Please Login!";
             $stmt->close();
         }
 

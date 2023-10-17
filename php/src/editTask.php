@@ -23,7 +23,6 @@ $users = new User();
 $apiKey = '4e8f3a3d6960a08f787632c2eca2e89f';
 $city =  $users->getWeatherCity();
 
-
 // Check if the form is submitted
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
@@ -43,15 +42,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Create an instance of the Task class
     $task = new Task();
 
+    $currentDate = date('Y-m-d H:i:s');
     $dueDate = $_POST['due_date'];
 
     // Use setters to update task properties
     $task->setId($taskId);
     $task->setTitle($_POST['title']);
     $task->setDescription($_POST['description']);
+    // Due date is in the future, it's valid
     $task->setDueDate($dueDate);
-    // ...other properties and save logic
-    // $task->setUserId($userId);
+    $task->setUserId($userId);
     $task->setCompleted(isset($_POST['completed']) ? 1 : 0);
 
     // Update the task in the database
@@ -67,6 +67,8 @@ if (isset($_GET['id'])) {
 
     // Create an instance of the Task class and fetch the task by ID
     $task = Task::getTaskById($taskId);
+
+    $dueDate = date('Y-m-d', strtotime($task->getDueDate()));
 
     if (!$task) {
         // Handle the case where the task with the provided ID does not exist
@@ -124,12 +126,6 @@ if (isset($_GET['id'])) {
     <script src="js/contact.js"></script>
     <!-- Include jQuery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-    <style>
-        #editUser input {
-            width: 50%;
-        }
-    </style>
 </head>
 
 <body>
@@ -172,9 +168,9 @@ if (isset($_GET['id'])) {
                             <div>
                                 <!-- <h3>Current Weather</h3> -->
                                 <ul>
-                                    <li>City: <?php echo isset($weatherData["name"]) ? $weatherData["name"] : ""; ?></li>
-                                    <li>Current Temp: <?php echo isset($weatherData["main"]["temp"]) ? $weatherData["main"]["temp"] : ""; ?></li>
-                                    <li>Weather: <?php echo isset($weatherData["weather"][0]["description"]) ? $weatherData["weather"][0]["description"] : ""; ?></li>
+                                     <li><strong>City:</strong> <?php echo isset($weatherData["name"]) ? $weatherData["name"] : ""; ?></li>
+                                    <li> <strong>Current Temp</strong>: <?php echo isset($weatherData["main"]["temp"]) ? $weatherData["main"]["temp"] : ""; ?></li>
+                                    <li> <strong>Weather:</strong> <?php echo isset($weatherData["weather"][0]["description"]) ? $weatherData["weather"][0]["description"] : ""; ?></li>
                                 </ul>
                             </div>
                         </span>
@@ -219,7 +215,7 @@ if (isset($_GET['id'])) {
                         <div class="form-group">
                             <label for="due_date" class="col-sm-2 control-label">Due Date:</label>
                             <div class="col-sm-10">
-                                <input type="date" class="form-control" id="due_date" name="due_date" value="<?php echo $task->getDueDate(); ?>" required>
+                                <input type="date" class="form-control" id="due_date" name="due_date" value="<?php echo $dueDate; ?>" required />
                             </div>
                         </div>
 

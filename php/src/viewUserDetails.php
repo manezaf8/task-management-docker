@@ -9,13 +9,16 @@
 
 
 require 'Task.php'; // Include the Task class
+require 'Users.php'; // Include the User class
 // Include the weather integration file
 require 'weather.php';
 
-// Define your OpenWeatherMap API key and city
-$apiKey = '4e8f3a3d6960a08f787632c2eca2e89f';
-$city = 'Cape Town';
+    // User class
+    $usersClass = new User();
 
+    // Define your OpenWeatherMap API key and city
+    $apiKey = '4e8f3a3d6960a08f787632c2eca2e89f';
+    $city =  $usersClass->getWeatherCity();
 ?>
 
 <!DOCTYPE html>
@@ -121,9 +124,9 @@ $city = 'Cape Town';
                             <div>
                                 <!-- <h3>Current Weather</h3> -->
                                 <ul>
-                                    <li>City: <?php echo isset($weatherData["name"]) ? $weatherData["name"] : ""; ?></li>
-                                    <li>Current Temp: <?php echo isset($weatherData["main"]["temp"]) ? $weatherData["main"]["temp"] : ""; ?></li>
-                                    <li>Weather: <?php echo isset($weatherData["weather"][0]["description"]) ? $weatherData["weather"][0]["description"] : ""; ?></li>
+                                    <li><strong>City:</strong> <?php echo isset($weatherData["name"]) ? $weatherData["name"] : ""; ?></li>
+                                    <li> <strong>Current Temp</strong>: <?php echo isset($weatherData["main"]["temp"]) ? $weatherData["main"]["temp"] : ""; ?></li>
+                                    <li> <strong>Weather:</strong> <?php echo isset($weatherData["weather"][0]["description"]) ? $weatherData["weather"][0]["description"] : ""; ?></li>
                                 </ul>
                             </div>
                         </span>
@@ -144,8 +147,6 @@ $city = 'Cape Town';
                 <div class="row">
                     <div class="col-md-6 col-md-offset-3">
                         <?php
-
-                        require 'Users.php'; // Include the User class
 
                         // Check if the user_id parameter is set in the URL
                         if (isset($_GET['user_id'])) {
@@ -192,7 +193,7 @@ $city = 'Cape Town';
             </div>
         </section>
         <!-- content close -->
-<br />
+        <br />
         <!-- footer begin -->
         <footer>
             <div class="subfooter">
