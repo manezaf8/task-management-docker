@@ -108,7 +108,7 @@ $taskClass = new Task();
                     </li>
                     <li><a href="usersList.php">View Users</a>
                     </li>
-                    <li><a onclick="logoutNow()" href="#">Logout</a></li>
+                    <li><a onclick="logoutNow()" href="logout.php">Logout</a></li>
                 </ul>
                 <!-- mainmenu close -->
 
@@ -205,7 +205,7 @@ $taskClass = new Task();
                     $alltasks = $taskClass->getAllTasks();
                     // Check if there are no tasks, and display the "Create Task" button if true
                     if (empty($alltasks)) {
-                        echo '<a  href="createTask.php" class="btn btn-primary">Create a Task</a>';
+                        // echo '<a  href="createTask.php" class="btn btn-primary">Create a Task</a>';
                     } else {
                     ?>
 
@@ -217,7 +217,7 @@ $taskClass = new Task();
                                     <th data-orderable="false">Description</th>
                                     <th>Due Date</th>
                                     <th>Completed</th>
-                                    <th>User ID</th>
+                                    <th>Logged By</th>
                                     <th data-orderable="false">Edit</th>
                                     <th data-orderable="false">Delete</th>
                                 </tr>
