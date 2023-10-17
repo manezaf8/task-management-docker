@@ -11,7 +11,7 @@
 function getCurrentWeather($cityName, $apiKey)
 {
     try {
-        $url = "https://api.openweathermap.org/data/2.5/weather?q=" . urlencode($cityName) . "&appid=" . $apiKey;
+        $url = "https://api.openweathermap.org/data/2.5/weather?q=" . urlencode($cityName) . "&appid=" . $apiKey . "&units=metric";
 
         // Make an HTTP request to the API and get the response headers
         $context = stream_context_create(['http' => ['ignore_errors' => true]]);
