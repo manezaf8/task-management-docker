@@ -7,7 +7,13 @@
  * @copyright Copyright © 2023 VMP By Maneza
  */
 
-// Function to fetch current weather data from OpenWeatherMap API
+/**
+ * Get weather API
+ *
+ * @param string $cityName
+ * @param string $apiKey
+ * @return void
+ */
 function getCurrentWeather($cityName, $apiKey)
 {
     try {

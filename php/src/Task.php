@@ -117,8 +117,8 @@ class Task
         // Prepare the SQL statement
         $sql = "INSERT INTO tasks (title, description, due_date, user_id, completed) 
         VALUES (?, ?, ?, ?, ?)";
-        var_dump($sql);
-        // You should adjust this logic based on your actual application flow.
+
+       // You should adjust this logic based on your actual application flow.
         $userId = null; // Initialize user ID as null
 
         if (isset($_POST["id"])) {
@@ -185,7 +185,7 @@ class Task
 
         // Prepare the SQL statement
         $sql = "UPDATE tasks 
-                SET title = ?, description = ?, due_date = ?, user_id = ?, completed = ? 
+                SET title = ?, description = ?, due_date = ?, completed = ? 
                 WHERE id = ?";
         $userId = null;
 
@@ -195,11 +195,10 @@ class Task
         // Bind parameters and execute the query
         $stmt = $db->prepare($sql);
         $stmt->bind_param(
-            "sssiii",
+            "sssii",
             $this->title,
             $this->description,
             $this->dueDate,
-            $this->userId,
             $this->completed,
             $this->id
         );

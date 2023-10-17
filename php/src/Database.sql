@@ -13,7 +13,7 @@ CREATE TABLE users (
 
 -- Create Tasks Table
 CREATE TABLE tasks (
-  `id` int NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT  PRIMARY KEY,
   `title` varchar(255) NOT NULL,
   `description` text,
   `user_id` int DEFAULT NULL,
@@ -21,5 +21,10 @@ CREATE TABLE tasks (
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `due_date` timestamp NULL,
-    FOREIGN KEY (id) REFERENCES users(id)
+    FOREIGN KEY (user_id) REFERENCES users(id)
 );
+
+INSERT INTO tasks (title, description, due_date, user_id, completed) 
+        VALUES ('Drake', 'Dake should say something', '2023-10-18 00:00:00', 1, 1 );
+
+SHOW GRANTS FOR 'admin'@'localhost' ON ekomi.*;
