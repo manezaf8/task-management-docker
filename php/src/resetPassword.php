@@ -29,7 +29,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $user->updatePassword($email, $newPassword);
 
             // Password updated successfully
-            $resetPasswordSuccess =  "Password reset successfully. You can now <a href='index.php'>log in</a> with your new password.";
+            $resetPasswordSuccess = "Password reset successfully. You will be redirected to the login page in 3 seconds. If not, click <a href='index.php'>here</a>.";
+
+            echo $resetPasswordSuccess;
+            echo '<meta http-equiv="refresh" content="3;url=index.php">';
+            
+            exit; // Terminate script execution
         } else {
             // Invalid request
             $resetPasswordError  = "Invalid or expired reset link.";

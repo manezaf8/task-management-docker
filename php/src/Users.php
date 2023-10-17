@@ -267,7 +267,7 @@ class User
 
             if ($stmt->execute()) {
                 // Send a reset email to the user with a link to reset their password
-                $resetLink = "http://ekomi.local/task-dashboard/resetPassword.php?email=" . $email . "&token=" . $resetToken; //edit this to your website
+                $resetLink = "{$this->getSiteUrl('/resetPassword.php')}?email=" . $email . "&token=" . $resetToken; //edit this to your website url if you not getting it
                 $message = "To reset your password, click on the following link:\n" . "<a href='{$resetLink}'>Reset your password now</a>";
                 $_SESSION['reset_password'] =  $message;
 
@@ -278,7 +278,30 @@ class User
         return false;
     }
 
+    /**
+     * Get Site url
+     *
+     * @param string $path
+     * @return string
+     */
+    function getSiteUrl($path = '/') {
+        $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? "https://" : "http://";
+        $host = $_SERVER['HTTP_HOST'];
+        $scriptName = $_SERVER['SCRIPT_NAME'];
+        
+        // Remove the script filename to get the base URL
+        $baseUrl = dirname($scriptName);
+        
+        return $protocol . $host . $baseUrl . $path;
+    }
 
+
+    /**
+     * Check if email exists
+     *
+     * @param [type] $email
+     * @return Bool
+     */
     private function emailExists($email)
     {
         global $db; // Use the database connection from connect.php
@@ -302,6 +325,13 @@ class User
         }
     }
 
+    /**
+     * Validate password
+     *
+     * @param [type] $email
+     * @param [type] $token
+     * @return boolean
+     */
     public function isValidPasswordResetRequest($email, $token)
     {
         global $db; // Use the database connection from connect.php or your configuration file.
@@ -344,7 +374,10 @@ class User
         $stmt = $db->prepare($sql);
         $stmt->bind_param("ss", $hashedPassword, $email);
         $result = $stmt->execute();
-        $stmt->close();
+        if ($result){
+            $_SESSION['updated_password'] = "Password reset was successful!";
+            $stmt->close();
+        }
 
         // Return true if the update was successful, false otherwise.
         return $result;
@@ -443,6 +476,8 @@ class User
         );
 
         if ($stmt->execute()) {
+            $_SESSION['user_updated'] = "User: {$this->name} updated successfully";
+
             return true; // user updated successfully
         } else {
             return false; // user could not be updated
@@ -467,6 +502,7 @@ class User
         $stmt->bind_param("i", $userId);
 
         if ($stmt->execute()) {
+            $_SESSION['user_deleted'] = "User: {$userId} deleted successfully";
             return true; // user deleted successfully
         } else {
             return false; // user could not be deleted
