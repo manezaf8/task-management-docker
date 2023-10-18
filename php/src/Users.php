@@ -208,6 +208,7 @@ class User
 
             return true; // Password is correct
         } else {
+            $_SESSION['login_error'] = 'Aaaahh!!  check your email/password...';
             return false; // Password is incorrect
         }
     }

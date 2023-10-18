@@ -44,7 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         $user = new User();
 
-        // Check if the password meets certain criteria (e.g., length, complexity)
+        // Check if the password meets certain criteria 
         if ($user->validatePassword($password)) {
             // Password is valid, create the user
             $user->setName($name);
@@ -187,7 +187,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         // Clear the session variable
                         unset($_SESSION['registration_error']);
                     }
-                    ?>
+                    ?>                    
+                    
+                    <?php if (isset($_SESSION['login_error'])) : ?>
+                        <div class="alert alert-error"><?php echo $_SESSION['login_error']; ?></div>
+                        <?php unset($_SESSION['login_error']); // Clear the message after displaying
+                        ?>
+                    <?php endif; ?>
 
                     <?php if (isset($_SESSION['registration_success'])) : ?>
                         <div class="alert alert-success"><?php echo $_SESSION['registration_success']; ?></div>
