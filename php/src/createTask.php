@@ -34,7 +34,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_SESSION['user_id'])) {
         $userId = $_SESSION['user_id'];
     }
-    // Adjust this line to get the user ID from
+
+    $assignedUserName = $_POST['assign_to'];
     // Create a new Task object
     $task = new Task();
 
@@ -43,6 +44,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $task->setDescription($_POST["description"]);
     $task->setDueDate($_POST["due_date"]);
     $task->setUserId($userId); // Set the user ID
+    $task->setAssignedTo($assignedUserName); // Set the assigned user's ID
+
 
     $task->setCompleted(isset($_POST["completed"]) ? 1 : 0);
 
@@ -141,7 +144,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 <!-- <h3>Current Weather</h3> -->
                                 <ul>
                                      <li><strong>City:</strong> <?php echo isset($weatherData["name"]) ? $weatherData["name"] : "Sorry!! Your City can't be pulled by OpenWeather"; ?></li>
-                                    <li> <strong>Current Temp</strong>: <?php echo isset($weatherData["main"]["temp"]) ? $weatherData["main"]["temp"] : ""; ?></li>
+                                    <li> <strong>Current Temp</strong>: <?php echo isset($weatherData["main"]["temp"]) ? $weatherData["main"]["temp"] . "°C" : ""; ?></li>
                                     <li> <strong>Weather:</strong> <?php echo isset($weatherData["weather"][0]["description"]) ? $weatherData["weather"][0]["description"] : ""; ?></li>
                                 </ul>
                             </div>
@@ -190,6 +193,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             <label for="completed" class="col-sm-2">Completed:</label>
                             <div class="col-sm-10">
                                 <input type="checkbox" id="completed" name="completed">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="assign_to" class="col-sm-2">Assigned To:</label>
+                            <div class="col-sm-10">
+                                <select class="form-control" id="assign_to" name="assign_to">
+                                    <?php
+                                    // Assume you have a function to fetch user names from the database
+                                    $userNames = $users->getUsersFromDatabase(); 
+
+                                    foreach ($userNames as $userName) {
+                                        echo '<option value="' . $userName['name'] . '">' . $userName['name'] . '</option>';
+                                    }
+                                        ?>
+                                </select>
                             </div>
                         </div>
                         <div class="form-group">

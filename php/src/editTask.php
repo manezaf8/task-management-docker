@@ -35,9 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Get the task ID from the form
     $taskId = $_POST['id'];
 
-    if (isset($_SESSION['user_id'])) {
-        $userId = $_SESSION['user_id'];
-    }
+    $assignedUserName = $_POST['assign_to'];
 
     // Create an instance of the Task class
     $task = new Task();
@@ -49,10 +47,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $task->setId($taskId);
     $task->setTitle($_POST['title']);
     $task->setDescription($_POST['description']);
-    // Due date is in the future, it's valid
     $task->setDueDate($dueDate);
-    $task->setUserId($userId);
     $task->setCompleted(isset($_POST['completed']) ? 1 : 0);
+    $task->setAssignedTo($assignedUserName); // Set the assigned user's ID
 
     // Update the task in the database
     if ($task->update()) {
@@ -168,8 +165,8 @@ if (isset($_GET['id'])) {
                             <div>
                                 <!-- <h3>Current Weather</h3> -->
                                 <ul>
-                                     <li><strong>City:</strong> <?php echo isset($weatherData["name"]) ? $weatherData["name"] : "Sorry!! Your City can't be pulled by OpenWeather"; ?></li>
-                                    <li> <strong>Current Temp</strong>: <?php echo isset($weatherData["main"]["temp"]) ? $weatherData["main"]["temp"] : ""; ?></li>
+                                     <li><strong>City:</strong> <?php echo isset($weatherData["name"]) ? $weatherData["name"] : "Sorry!! Your City can't be pulled by OpenWeather, update with the nearest city"; ?></li>
+                                    <li> <strong>Current Temp</strong>: <?php echo isset($weatherData["main"]["temp"]) ? $weatherData["main"]["temp"] . "°C" : ""; ?></li>
                                     <li> <strong>Weather:</strong> <?php echo isset($weatherData["weather"][0]["description"]) ? $weatherData["weather"][0]["description"] : ""; ?></li>
                                 </ul>
                             </div>
@@ -195,32 +192,32 @@ if (isset($_GET['id'])) {
                     <hr class="blank">
 
                     <!-- Task edit form -->
-                    <form id="editUser loginForm" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>" class="form-horizontal">
+                    <form style="width: 75%;" id="editUser loginForm" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>" class="form-horizontal">
                         <input type="hidden" name="id" value="<?php echo $task->getId(); ?>">
 
                         <div class="form-group">
-                            <label for="title" class="col-sm-2 control-label">Title:</label>
+                            <label for="title" class="col-sm-2">Title:</label>
                             <div class="col-sm-10">
                                 <input type="text" class="form-control" id="title" name="title" value="<?php echo $task->getTitle(); ?>" required>
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label for="description" class="col-sm-2 control-label">Description:</label>
+                            <label for="description" class="col-sm-2">Description:</label>
                             <div class="col-sm-10">
                                 <textarea class="form-control" id="description" name="description" rows="4" required><?php echo $task->getDescription(); ?></textarea>
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label for="due_date" class="col-sm-2 control-label">Due Date:</label>
+                            <label for="due_date" class="col-sm-2 ">Due Date:</label>
                             <div class="col-sm-10">
                                 <input type="date" class="form-control" id="due_date" name="due_date" value="<?php echo $dueDate; ?>" required />
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label for="completed" class="col-sm-2 control-label">Completed:</label>
+                            <label for="completed" class="col-sm-2">Completed:</label>
                             <div class="col-sm-10">
                                 <div class="checkbox">
                                     <label>
@@ -230,6 +227,21 @@ if (isset($_GET['id'])) {
                             </div>
                         </div>
 
+                        <div class="form-group">
+                            <label for="assign_to" class="col-sm-2">Assigned To:</label>
+                            <div class="col-sm-10">
+                                <select class="form-control" id="assign_to" name="assign_to">
+                                    <?php
+                                    // Assume you have a function to fetch user names from the database
+                                    $userNames = $users->getUsersFromDatabase(); 
+
+                                    foreach ($userNames as $userName) {
+                                        echo '<option value="' . $userName['name'] . '">' . $userName['name'] . '</option>';
+                                    }
+                                        ?>
+                                    </select>
+                            </div>
+                        </div>
                         <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-10">
                                 <button type="submit" class="btn btn-primary">Save Changes</button>

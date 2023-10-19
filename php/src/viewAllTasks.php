@@ -130,7 +130,7 @@ $taskClass = new Task();
                                 <!-- <h3>Current Weather</h3> -->
                                 <ul>
                                      <li><strong>City:</strong> <?php echo isset($weatherData["name"]) ? $weatherData["name"] : "Sorry!! Your City can't be pulled by OpenWeather"; ?></li>
-                                    <li> <strong>Current Temp</strong>: <?php echo isset($weatherData["main"]["temp"]) ? $weatherData["main"]["temp"] : ""; ?></li>
+                                     <li> <strong>Current Temp</strong>: <?php echo isset($weatherData["main"]["temp"]) ? $weatherData["main"]["temp"] . "°C" : ""; ?></li>
                                     <li> <strong>Weather:</strong> <?php echo isset($weatherData["weather"][0]["description"]) ? $weatherData["weather"][0]["description"] : ""; ?></li>
                                 </ul>
                             </div>
@@ -215,9 +215,10 @@ $taskClass = new Task();
                                     <th>ID</th>
                                     <th>Title</th>
                                     <th data-orderable="false">Description</th>
+                                    <th>Assigned to</th>
                                     <th>Due Date</th>
                                     <th>Completed</th>
-                                    <th>User ID</th>
+                                    <th>Log by</th>
                                     <th data-orderable="false">Edit</th>
                                     <th data-orderable="false">Delete</th>
                                 </tr>
@@ -232,8 +233,10 @@ $taskClass = new Task();
                                         <td><?php echo $task->getId(); ?></td>
                                         <td><?php echo $task->getTitle(); ?></td>
                                         <td><?php echo $task->getDescription(); ?></td>
+                                        <td><?php echo $task->getAssignedTo();  ?></td>
                                         <td><?php echo $task->getDueDate(); ?></td>
                                         <td><?php echo $task->isCompleted() ? 'Yes' : 'No'; ?></td>
+                                        
                                         <td>
                                             <!-- Display user ID as a clickable link -->
                                             <a href="viewUserDetails.php?user_id=<?php echo $task->getUserId(); ?>">

@@ -67,7 +67,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 }
 ?>
 
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -104,6 +103,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <script src="js/jquery.flexslider-min.js"></script>
     <script src="js/custom.js"></script>
     <script src="js/contact.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 </head>
 
 <body>
@@ -187,13 +187,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         // Clear the session variable
                         unset($_SESSION['registration_error']);
                     }
-                    ?>                    
-                    
+                    ?>
+
                     <?php if (isset($_SESSION['login_error'])) : ?>
                         <div class="alert alert-error"><?php echo $_SESSION['login_error']; ?></div>
                         <?php unset($_SESSION['login_error']); // Clear the message after displaying
                         ?>
                     <?php endif; ?>
+
 
                     <?php if (isset($_SESSION['registration_success'])) : ?>
                         <div class="alert alert-success"><?php echo $_SESSION['registration_success']; ?></div>
@@ -210,7 +211,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                     <div class="span8">
                         <h3 style="padding-bottom: 20px;"> Log In To The Task Management</h3>
-                        Feel free to contact us here (111) 333 7777  if you having issue.<br />
+                        Feel free to contact us here (111) 333 7777 if you having issue.<br />
                         <br />
                         <div class="contact_form_holder">
                             <form id="contact loginForm" class="row" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
@@ -300,7 +301,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <div class="container">
                 <div class="row">
                     <div class="span6">
-                        &copy; Copyright  <?php echo date("Y") ?> - Designed by Maneza F8
+                        &copy; Copyright <?php echo date("Y") ?> - Designed by Maneza F8
                     </div>
                     <div class="span6">
                         <nav>

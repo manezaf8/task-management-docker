@@ -137,7 +137,11 @@ class User
         }
     }
 
-    // Function to save a new user to the database
+    /**
+     * Save New Users
+     *
+     * @return Bool
+     */
     public function save()
     {
         global $db; // Use the database connection from connect file
@@ -160,6 +164,7 @@ class User
 
                 return true; // User saved successfully
             } else {
+                $_SESSION['registration_error'] = 'An error occurred while registering. This email address is already in use.';
                 return false; // User could not be saved
             }
         } catch (mysqli_sql_exception $e) {
@@ -167,20 +172,19 @@ class User
         }
     }
 
-
     /**
      * Login funtion
      *
      * @param String $email
      * @param String $password
-     * @return bool
+     * @return Bool
      */
     public function login($email, $password)
     {
         global $db; // Use the database connection from Connection.php
 
         // Prepare the SQL statement to retrieve user data based on the provided email
-        $sql = "SELECT id, name, password FROM users WHERE email = ?";
+        $sql = "SELECT id, name, email, password FROM users WHERE email = ?";
         $stmt = $db->prepare($sql);
         $stmt->bind_param("s", $email);
         $stmt->execute();
@@ -193,31 +197,32 @@ class User
 
         // Check if a user with the provided email exists
         if ($result->num_rows === 0) {
+            $_SESSION['login_error'] = 'Aaaahh!!  check your email/password...';
             return false; // User not found
         }
 
         // Fetch the user data
         $user = $result->fetch_assoc();
 
-        // Compare the provided password with the stored hashed password
-        if (password_verify($password, $user["password"])) {
+        // Verify the provided password against the stored hash
+        if (password_verify($password, $user['password'])) {
+            $_SESSION['user_id'] = $user['id'];
+            $_SESSION['user_name'] = $user['name'];
+            $_SESSION['login_success'] = 'Hey ' . $user['name'] . '  you are logged in successfully!';
 
-            $_SESSION["user_id"] = $user["id"];
-            $_SESSION["user_name"] = $user["name"];
-            $_SESSION['login_success'] = 'Hey ' . $user["name"] . '  you are Logged in successfully!';
-
-            return true; // Password is correct
+            return true;
         } else {
             $_SESSION['login_error'] = 'Aaaahh!!  check your email/password...';
-            return false; // Password is incorrect
+            return false; // Incorrect password
         }
     }
 
+
     /**
      * Validate Password
-     * @param string $password
+     * @param String $password
      * 
-     * @return mixed
+     * @return Bool
      */
     function validatePassword($password)
     {
@@ -248,7 +253,7 @@ class User
     /**
      * Forgot password function
      *
-     * @param string $email
+     * @param String $email
      * @return Bool
      */
     public function forgotPassword($email)
@@ -279,18 +284,31 @@ class User
         return false;
     }
 
-    function getSiteUrl($path = '/') {
+    /**
+     * Get Website URL
+     *
+     * @param String $path
+     * @return String
+     */
+    function getSiteUrl($path = '/')
+    {
         $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? "https://" : "http://";
         $host = $_SERVER['HTTP_HOST'];
         $scriptName = $_SERVER['SCRIPT_NAME'];
-        
+
         // Remove the script filename to get the base URL
         $baseUrl = dirname($scriptName);
-        
+
         return $protocol . $host . $baseUrl . $path;
     }
 
 
+    /**
+     * Check if the email already exist in the database
+     *
+     * @param String $email
+     * @return void
+     */
     private function emailExists($email)
     {
         global $db; // Use the database connection from connect.php
@@ -314,6 +332,13 @@ class User
         }
     }
 
+    /**
+     * Check if password is valid for pass reset
+     *
+     * @param String $email
+     * @param String $token
+     * @return Boolean
+     */
     public function isValidPasswordResetRequest($email, $token)
     {
         global $db; // Use the database connection from connect.php or your configuration file.
@@ -340,7 +365,7 @@ class User
      *
      * @param string $email
      * @param string $newPassword
-     * @return void
+     * @return Bool
      */
     public function updatePassword($email, $newPassword)
     {
@@ -356,7 +381,8 @@ class User
         $stmt = $db->prepare($sql);
         $stmt->bind_param("ss", $hashedPassword, $email);
         $result = $stmt->execute();
-        if ($result){
+
+        if ($result) {
             $_SESSION['updated_password'] = "Password reset was successful! | Please Login!";
             $stmt->close();
         }
@@ -404,6 +430,34 @@ class User
     }
 
     /**
+     * Get usernames from Database 
+     *
+     * @return 
+     */
+    public function getUsersFromDatabase()
+    {
+        global $db;
+
+        // Prepare the SQL statement to fetch all users
+        $sql = "SELECT id, name FROM users";
+
+        // Execute the query
+        $result = $db->query($sql);
+
+        if ($result) {
+            $userNames = [];
+
+            while ($row = $result->fetch_assoc()) {
+                $userNames[] = $row;
+            }
+
+            return $userNames;
+        } else {
+            return false; // Query failed
+        }
+    }
+
+    /**
      * Get a user by ID
      *
      * @param string|int $userId
@@ -411,7 +465,7 @@ class User
      */
     public function getUserById($userId)
     {
-        global $db; // Use the database connection from Connection.php
+        global $db;
 
         // Prepare the SQL statement to retrieve user data by user_id
         $sql = "SELECT * FROM users WHERE id = ?";
