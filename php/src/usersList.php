@@ -72,7 +72,6 @@ $city =  $usersClass->getWeatherCity();
 
 <body>
     <div id="wrapper">
-
         <!-- header begin -->
         <header>
             <div class="info">
@@ -101,7 +100,6 @@ $city =  $usersClass->getWeatherCity();
                             <img src="images/logo.png" alt="logo"></a>
                     </div>
                 </div>
-
                 <!-- mainmenu begin -->
                 <ul id="mainmenu">
                     <li><a href="viewAllTasks.php">Home</a>
@@ -111,11 +109,9 @@ $city =  $usersClass->getWeatherCity();
                     <li><a onclick="logoutNow()" href="#">Logout</a></li>
                 </ul>
                 <!-- mainmenu close -->
-
             </div>
         </header>
         <!-- header close -->
-
         <!-- subheader begin -->
         <div id="subheader">
             <div class="container">
@@ -129,7 +125,7 @@ $city =  $usersClass->getWeatherCity();
                             <div>
                                 <!-- <h3>Current Weather</h3> -->
                                 <ul>
-                                     <li><strong>City:</strong> <?php echo isset($weatherData["name"]) ? $weatherData["name"] : "Sorry!! Your City can't be pulled by OpenWeather"; ?></li>
+                                    <li><strong>City:</strong> <?php echo isset($weatherData["name"]) ? $weatherData["name"] : "Sorry!! Your City can't be pulled by OpenWeather"; ?></li>
                                     <li> <strong>Current Temp</strong>: <?php echo isset($weatherData["main"]["temp"]) ? $weatherData["main"]["temp"] . "°C" : ""; ?></li>
                                     <li> <strong>Weather:</strong> <?php echo isset($weatherData["weather"][0]["description"]) ? $weatherData["weather"][0]["description"] : ""; ?></li>
                                 </ul>
@@ -145,7 +141,6 @@ $city =  $usersClass->getWeatherCity();
             </div>
         </div>
         <!-- subheader close -->
-
         <!-- services section begin -->
         <section id="services" data-speed="10" data-type="background">
             <div class="container">
@@ -155,21 +150,6 @@ $city =  $usersClass->getWeatherCity();
                     </div>
                     <hr class="blank">
 
-                    <?php
-                    if (isset($_SESSION['registration_error'])) {
-                        // Use SweetAlert to display the error message
-                        echo '<script>
-                            Swal.fire({
-                                icon: "error",
-                                title: "Error",
-                                text: "' . $_SESSION['registration_error'] . '"
-                            });
-                        </script>';
-                        // Clear the session variable
-                        unset($_SESSION['registration_error']);
-                    }
-                    ?>
-                    
                     <?php if (isset($_SESSION['user_deleted'])) : ?>
                         <div class="alert alert-success"><?php echo $_SESSION['user_deleted']; ?></div>
                         <?php unset($_SESSION['user_deleted']); // Clear the message after displaying 
@@ -220,29 +200,6 @@ $city =  $usersClass->getWeatherCity();
                                             <!-- Delete button -->
                                             <button onclick="deleteTask(<?php echo $user->getUserId(); ?>)" class="btn btn-danger btn-sm">Delete</button>
                                         </td>
-                                        <!-- JavaScript function to confirm and delete the task -->
-                                        <script>
-                                            function logoutNow() {
-                                                if (confirm("Are you sure you want to logout?")) {
-                                                    // Redirect to logout.php
-                                                    window.location.href = "logout.php";
-                                                }
-                                            }
-
-                                            function deleteTask(taskId) {
-                                                if (confirm("Are you sure you want to delete this user?")) {
-                                                    // Redirect to deleteTask.php with the task ID
-                                                    window.location.href = "deleteUser.php?id=" + taskId;
-                                                }
-                                            }
-
-                                            function editTask(taskId) {
-                                                if (confirm("Are you sure you want to edit this user?")) {
-                                                    // Redirect to deleteTask.php with the task ID
-                                                    window.location.href = "editUser.php?id=" + taskId;
-                                                }
-                                            }
-                                        </script>
                                     </tr>
                                 <?php endforeach; ?>
                             </tbody>
@@ -257,14 +214,13 @@ $city =  $usersClass->getWeatherCity();
             </div>
         </section>
         <!-- content close -->
-
         <!-- footer begin -->
         <footer>
             <div class="subfooter">
                 <div class="container">
                     <div class="row">
                         <div class="span6">
-                            &copy; Copyright  <?php echo date("Y") ?> - Designed by Maneza F8
+                            &copy; Copyright <?php echo date("Y") ?> - Designed by Maneza F8
                         </div>
                         <div class="span6">
                             <nav>
@@ -278,10 +234,8 @@ $city =  $usersClass->getWeatherCity();
                     </div>
                 </div>
             </div>
-
         </footer>
         <!-- footer close -->
-
     </div>
     <!-- Latest compiled and minified JavaScript -->
     <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> -->
@@ -293,7 +247,29 @@ $city =  $usersClass->getWeatherCity();
             $('#taskTable').DataTable();
         });
     </script>
+    <!-- JavaScript function to confirm and delete the task -->
+    <script>
+        function logoutNow() {
+            if (confirm("Are you sure you want to logout?")) {
+                // Redirect to logout.php
+                window.location.href = "logout.php";
+            }
+        }
 
+        function deleteTask(taskId) {
+            if (confirm("Are you sure you want to delete this user?")) {
+                // Redirect to deleteTask.php with the task ID
+                window.location.href = "deleteUser.php?id=" + taskId;
+            }
+        }
+
+        function editTask(taskId) {
+            if (confirm("Are you sure you want to edit this user?")) {
+                // Redirect to deleteTask.php with the task ID
+                window.location.href = "editUser.php?id=" + taskId;
+            }
+        }
+    </script>
 </body>
 
 </html>
