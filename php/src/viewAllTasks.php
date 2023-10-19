@@ -72,7 +72,6 @@ $taskClass = new Task();
 
 <body>
     <div id="wrapper">
-
         <!-- header begin -->
         <header>
             <div class="info">
@@ -101,7 +100,6 @@ $taskClass = new Task();
                             <img src="images/logo.png" alt="logo"></a>
                     </div>
                 </div>
-
                 <!-- mainmenu begin -->
                 <ul id="mainmenu">
                     <li><a href="viewAllTasks.php">Home</a>
@@ -111,11 +109,9 @@ $taskClass = new Task();
                     <li><a onclick="logoutNow()" href="#">Logout</a></li>
                 </ul>
                 <!-- mainmenu close -->
-
             </div>
         </header>
         <!-- header close -->
-
         <!-- subheader begin -->
         <div id="subheader">
             <div class="container">
@@ -129,8 +125,8 @@ $taskClass = new Task();
                             <div>
                                 <!-- <h3>Current Weather</h3> -->
                                 <ul>
-                                     <li><strong>City:</strong> <?php echo isset($weatherData["name"]) ? $weatherData["name"] : "Sorry!! Your City can't be pulled by OpenWeather"; ?></li>
-                                     <li> <strong>Current Temp</strong>: <?php echo isset($weatherData["main"]["temp"]) ? $weatherData["main"]["temp"] . "°C" : ""; ?></li>
+                                    <li><strong>City:</strong> <?php echo isset($weatherData["name"]) ? $weatherData["name"] : "Sorry!! Your City can't be pulled by OpenWeather | Update your city to the nearest to you"; ?></li>
+                                    <li> <strong>Current Temp</strong>: <?php echo isset($weatherData["main"]["temp"]) ? $weatherData["main"]["temp"] . "°C" : ""; ?></li>
                                     <li> <strong>Weather:</strong> <?php echo isset($weatherData["weather"][0]["description"]) ? $weatherData["weather"][0]["description"] : ""; ?></li>
                                 </ul>
                             </div>
@@ -145,7 +141,6 @@ $taskClass = new Task();
             </div>
         </div>
         <!-- subheader close -->
-
         <!-- services section begin -->
         <section id="services" data-speed="10" data-type="background">
             <div class="container">
@@ -154,21 +149,6 @@ $taskClass = new Task();
                         <h2>Tasks</h2>
                     </div>
                     <hr class="blank">
-
-                    <?php
-                    if (isset($_SESSION['registration_error'])) {
-                        // Use SweetAlert to display the error message
-                        echo '<script>
-                            Swal.fire({
-                                icon: "error",
-                                title: "Error",
-                                text: "' . $_SESSION['registration_error'] . '"
-                            });
-                        </script>';
-                        // Clear the session variable
-                        unset($_SESSION['registration_error']);
-                    }
-                    ?>
 
                     <?php if (isset($_SESSION['registration_success'])) : ?>
                         <div class="alert alert-success"><?php echo $_SESSION['registration_success']; ?></div>
@@ -236,7 +216,7 @@ $taskClass = new Task();
                                         <td><?php echo $task->getAssignedTo();  ?></td>
                                         <td><?php echo $task->getDueDate(); ?></td>
                                         <td><?php echo $task->isCompleted() ? 'Yes' : 'No'; ?></td>
-                                        
+
                                         <td>
                                             <!-- Display user ID as a clickable link -->
                                             <a href="viewUserDetails.php?user_id=<?php echo $task->getUserId(); ?>">
@@ -251,31 +231,6 @@ $taskClass = new Task();
                                             <!-- Delete button -->
                                             <button onclick="deleteTask(<?php echo $task->getId(); ?>)" class="btn btn-danger btn-sm">Delete</button>
                                         </td>
-
-                                        <!-- JavaScript function to confirm and delete the task -->
-                                        <script>
-                                            function deleteTask(taskId) {
-                                                if (confirm("Are you sure you want to delete this task?")) {
-                                                    // Redirect to deleteTask.php with the task ID
-                                                    window.location.href = "deleteTask.php?id=" + taskId;
-                                                }
-                                            }
-
-                                            function logoutNow() {
-                                                if (confirm("Are you sure you want to logout?")) {
-                                                    // Redirect to logout.php
-                                                    window.location.href = "logout.php";
-                                                }
-                                            }
-
-
-                                            function editTask(taskId) {
-                                                if (confirm("Are you sure you want to edit this task?")) {
-                                                    // Redirect to deleteTask.php with the task ID
-                                                    window.location.href = "editTask.php?id=" + taskId;
-                                                }
-                                            }
-                                        </script>
                                     </tr>
                                 <?php endforeach; ?>
                             </tbody>
@@ -284,21 +239,19 @@ $taskClass = new Task();
                     } // End of else block
                     echo '<a  href="createTask.php" class="btn btn-primary">Add Task</a>';
                     ?>
-
                     <div class="map">
                     </div>
                 </div>
             </div>
         </section>
         <!-- content close -->
-
         <!-- footer begin -->
         <footer>
             <div class="subfooter">
                 <div class="container">
                     <div class="row">
                         <div class="span6">
-                            &copy; Copyright  <?php echo date("Y") ?> - Designed by Maneza F8
+                            &copy; Copyright <?php echo date("Y") ?> - Designed by Maneza F8
                         </div>
                         <div class="span6">
                             <nav>
@@ -312,10 +265,8 @@ $taskClass = new Task();
                     </div>
                 </div>
             </div>
-
         </footer>
         <!-- footer close -->
-
     </div>
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
@@ -327,6 +278,29 @@ $taskClass = new Task();
         });
     </script>
 
+    <!-- JavaScript function to confirm and delete the task -->
+    <script>
+        function deleteTask(taskId) {
+            if (confirm("Are you sure you want to delete this task?")) {
+                // Redirect to deleteTask.php with the task ID
+                window.location.href = "deleteTask.php?id=" + taskId;
+            }
+        }
+
+        function logoutNow() {
+            if (confirm("Are you sure you want to logout?")) {
+                // Redirect to logout.php
+                window.location.href = "logout.php";
+            }
+        }
+
+        function editTask(taskId) {
+            if (confirm("Are you sure you want to edit this task?")) {
+                // Redirect to deleteTask.php with the task ID
+                window.location.href = "editTask.php?id=" + taskId;
+            }
+        }
+    </script>
 </body>
 
 </html>
