@@ -19,10 +19,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         if ($user->forgotPassword($email)) {
  echo "<style>
- #forgotPassword {
-     display: none;
- }
-</style>";
+            #forgotPassword {
+                display: none;
+            }
+      </style>";
             session_destroy();
         }
     }

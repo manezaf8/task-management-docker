@@ -29,9 +29,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $user->updatePassword($email, $newPassword);
 
             // Password updated successfully
-            $resetPasswordSuccess = "Password reset successfully. You will be redirected to the login page in 5 seconds. If not, click <a href='index.php'>here</a>.";
+            $_SESSION['reset_password'] = "Password reset successfully. You will be redirected to the login page in 5 seconds. If not, click <a href='index.php'>here</a>.";
 
-            echo '<meta http-equiv="refresh" content="5;url=index.php">';
+            echo '<meta http-equiv="refresh" content="3;url=index.php">';
             
             exit; // Terminate script execution
         } else {
@@ -67,13 +67,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div class="container">
         <div class="row">
             <div class="col-md-6 col-md-offset-3">
+                <h1 class="text-center">Reset Your Password</h1>
                 <?php if (isset($_SESSION['reset_password'])) : ?>
                     <div class="alert alert-success"><?php echo $_SESSION['reset_password']; ?></div>
                     <?php unset($_SESSION['reset_password']); // Clear the message after displaying
                     ?>
                 <?php endif; ?>
-
-                <h1 class="text-center">Reset Your Password</h1>
                 <?php if (isset($resetPasswordSuccess)) : ?>
                             <p class="text-success"><?php echo $resetPasswordSuccess; ?></p>
                         <?php endif; ?>

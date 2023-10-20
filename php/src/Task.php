@@ -132,7 +132,6 @@ class Task
         $sql = "INSERT INTO tasks (title, description, assign_to, due_date, user_id, completed) 
         VALUES (?, ?, ?, ?, ?, ?)";
 
-        // You should adjust this logic based on your actual application flow.
         $userId = null; // Initialize user ID as null
 
         if (isset($_POST["id"])) {

@@ -1,7 +1,4 @@
 <?php
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
 
 /**
  * @package   Task Management
@@ -19,7 +16,7 @@ try {
     $dbHost = 'db'; //from your docker compose file
     $dbName = 'ekomi';
     $dbUser = 'admin';
-    $dbPassword = 'admin124';
+    $dbPassword = 'admin12';
 
     $db = new mysqli($dbHost, $dbUser, $dbPassword, $dbName);
 
@@ -27,5 +24,5 @@ try {
         die("Connection failed: " . $db->connect_error);
     }
 } catch (\Throwable $th) {
-    echo "An error occurred while fetching weather data. {$th}";
+    echo "An error occurred while trying to connect to the database... check your DB Info!!!";
 }
