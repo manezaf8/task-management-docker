@@ -88,6 +88,7 @@ if (isset($_GET['id'])) {
 <head>
     <meta charset="utf-8">
     <title>Edit Task - eKomi Tasks management</title>
+    <link rel="icon" type="image/x-icon" href="images/fav.png">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Responsive Minimal Bootstrap Theme">
     <meta name="keywords" content="responsive,minimal,bootstrap,theme">

@@ -52,6 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <head>
     <title>Reset Password</title>
+    <link rel="icon" type="image/x-icon" href="images/fav.png">
     <!-- Include your CSS and Bootstrap links here -->
 
     <!-- Include Bootstrap CSS -->
