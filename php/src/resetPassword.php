@@ -36,14 +36,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             exit; // Terminate script execution
         } else {
             // Invalid request
-            $resetPasswordError  = "Invalid or expired reset link.";
+            $_SESSION['reset_password_error']  = "Invalid or expired reset link.";
         }
     } else{
-        $resetPasswordError = "Email or token is not valid make sure the link is valid or <a href='index.php'>log in again</a>";
+        $_SESSION['reset_password_error']= "Email or token is not valid make sure the link is valid or <a href='index.php'>log in again</a>";
     }
     } else {
         // Passwords don't match
-        $resetPasswordError = "Passwords do not match.";
+        $_SESSION['reset_password_error'] = "Passwords do not match.";
     }
 }
 ?>
@@ -71,6 +71,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <?php if (isset($_SESSION['reset_password'])) : ?>
                     <div class="alert alert-success"><?php echo $_SESSION['reset_password']; ?></div>
                     <?php unset($_SESSION['reset_password']); // Clear the message after displaying
+                    ?>
+                <?php endif; ?>
+
+                <?php if (isset($_SESSION['reset_password_error'])) : ?>
+                    <div class="alert alert-error"><?php echo $_SESSION['reset_password_error']; ?></div>
+                    <?php unset($_SESSION['reset_password_error']); // Clear the message after displaying
                     ?>
                 <?php endif; ?>
                 <?php if (isset($resetPasswordSuccess)) : ?>

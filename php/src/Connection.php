@@ -16,7 +16,7 @@ try {
     $dbHost = 'db'; //from your docker compose file
     $dbName = 'ekomi';
     $dbUser = 'admin';
-    $dbPassword = 'admin12';
+    $dbPassword = 'admin124';
 
     $db = new mysqli($dbHost, $dbUser, $dbPassword, $dbName);
 
