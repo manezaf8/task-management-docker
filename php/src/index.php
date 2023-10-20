@@ -61,7 +61,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             }
         } else {
             // Password is invalid
-            $createUserError = 'Invalid password. Password must be at least 8 characters long and contain a mix of uppercase, lowercase letters, and numbers.';
+            $_SESSION['registration_error'] = 'Invalid password. Password must be at least 8 characters long and contain a mix of uppercase, lowercase letters, and numbers.';
         }
     }
 }
