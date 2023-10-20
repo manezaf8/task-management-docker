@@ -13,10 +13,10 @@ if (session_id() === '') {
 
 try {
     // Database credentials
-    $dbHost = 'db'; //from your docker compose file
-    $dbName = 'ekomi';
-    $dbUser = 'admin';
-    $dbPassword = 'admin124';
+    $dbHost = 'dbhost'; //from your docker compose file
+    $dbName = 'DBname';
+    $dbUser = 'user';
+    $dbPassword = 'pass';
 
     $db = new mysqli($dbHost, $dbUser, $dbPassword, $dbName);
 

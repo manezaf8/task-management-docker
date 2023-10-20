@@ -20,7 +20,7 @@ if (!isset($_SESSION['user_id'])) {
 
 // Define your OpenWeatherMap API key and city
 $users = new User();
-$apiKey = '4e8f3a3d6960a08f787632c2eca2e89f';
+$apiKey = 'add_the_weather_api_here';
 $city =  $users->getWeatherCity();
 
 $taskClass = new Task();

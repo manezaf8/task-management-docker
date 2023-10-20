@@ -23,10 +23,10 @@ services:
     image: mysql
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: admin124
-      MYSQL_DATABASE: ekomi
-      MYSQL_USER: admin
-      MYSQL_PASSWORD: admin124
+      MYSQL_ROOT_PASSWORD: pass
+      MYSQL_DATABASE: DBname
+      MYSQL_USER: user
+      MYSQL_PASSWORD: pass
     ports:
       - "9906:3306"
     volumes:
