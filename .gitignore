@@ -1,1 +1,4 @@
 php/src/Connection.php
+.vscode
+!php/src/Connection.php
+!.vscode
