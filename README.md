@@ -103,3 +103,26 @@ To add aditional software, add it to the Dockerfile. Add packages to the list
 of packages after the 'apt-get install' line in alphabetical order.
 
 ```
+
+## Accessing the Apache Container:
+
+You can access the running Apache container using the docker exec command. For example:
+  - `docker exec -it php-apache bash`
+  - `cd /etc/apache2`
+  -  `nano apache2.conf`
+- Add the following code
+`# 000-default.conf
+<VirtualHost *:80>
+    DocumentRoot ${APACHE_DOCUMENT_ROOT}
+    <Directory ${APACHE_DOCUMENT_ROOT}>
+        Options Indexes FollowSymLinks
+        AllowOverride All
+        Require all granted
+    </Directory>
+</VirtualHost>`
+-and `exit`
+
+
+- 
+   -  
+
