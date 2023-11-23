@@ -111,7 +111,8 @@ You can access the running Apache container using the docker exec command. For e
   - `cd /etc/apache2`
   -  `nano apache2.conf`
 - Add the following code
-`# 000-default.conf
+```
+# 000-default.conf
 <VirtualHost *:80>
     DocumentRoot ${APACHE_DOCUMENT_ROOT}
     <Directory ${APACHE_DOCUMENT_ROOT}>
@@ -119,7 +120,8 @@ You can access the running Apache container using the docker exec command. For e
         AllowOverride All
         Require all granted
     </Directory>
-</VirtualHost>`
+</VirtualHost>
+```
 -and `exit`
 
 
